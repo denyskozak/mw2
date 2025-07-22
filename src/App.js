@@ -3,7 +3,6 @@ import { Physics, RigidBody } from '@react-three/rapier'
 import {
   Gltf,
   Environment,
-  Fisheye,
   KeyboardControls,
   useGLTF,
   useAnimations,
@@ -12,39 +11,53 @@ import {
 import Controller from 'ecctrl'
 import { useGameState } from './storage/game-state'
 import { models } from './consts/models'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
+import characterSkillMap from './maps/character-skill-map.json'
+
+const mapKeys = (map, origin) => Object.entries(map).reduce((acc, [key, value]) => {
+
+  return {...acc, [key]: origin[value] }
+}, {})
 
 function AnimatedModel({ url, scale }) {
-  const group = useRef()
   const { scene, animations } = useGLTF(url)
-  const { actions } = useAnimations(animations, group)
-  const [subscribeKeys, getKeys] = useKeyboardControls()
+
+  const { actions: originActions, ref } = useAnimations(animations)
+  const [actions, setActions] = useState({})
+  const [subscribeKeys, getKeys] = useKeyboardControls();
 
   useEffect(() => {
-    actions.idle?.play()
+    actions?.idle?.play()
   }, [actions])
+
+  useEffect(() => {
+    setActions( mapKeys(characterSkillMap['brand'], originActions))
+  }, [ref.current])
 
   useFrame(() => {
     const { forward, backward, leftward, rightward, cast } = getKeys()
     const moving = forward || backward || leftward || rightward
 
-    if (cast && actions.casting) {
-      Object.values(actions).forEach((a) => a.stop())
-      actions.casting.reset().play()
-    } else if (moving && actions.walk) {
-      if (!actions.walk.isRunning()) {
-        Object.values(actions).forEach((a) => a.stop())
-        actions.walk.reset().play()
+    if (cast && actions?.casting) {
+      if (!actions?.casting.isRunning()) {
+        Object.values(actions).forEach((a) => a?.stop())
+        actions?.casting.play()
+      }
+
+    } else if (moving && actions?.walk) {
+      if (!actions?.walk.isRunning()) {
+        Object.values(actions).forEach((a) => a?.stop())
+        actions?.walk.reset().play()
       }
     } else {
-      if (!actions.idle?.isRunning()) {
-        Object.values(actions).forEach((a) => a.stop())
-        actions.idle?.play()
+      if (!actions?.idle?.isRunning()) {
+        Object.values(actions).forEach((a) => a?.stop())
+        actions?.idle?.play()
       }
     }
   })
 
-  return <primitive ref={group} object={scene} scale={scale} />
+  return <primitive ref={ref} object={scene} scale={scale} />
 }
 
 export default function App() {
