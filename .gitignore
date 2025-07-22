@@ -1,0 +1,5 @@
+.idea
+node_modules
+public/models/zone-fantasy-2.glb
+.DS_Store
+.env
