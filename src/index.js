@@ -6,5 +6,6 @@ createRoot(document.getElementById('root')).render(
   <>
     <App />
     <img className="controlKeys" src="/controls.png" alt="control keys" />
+    <div className="crosshair" />
   </>,
 )
