@@ -17,7 +17,7 @@ export default function Projectile({ start, direction, onFinish }) {
 
   return (
     <mesh ref={ref} position={startRef.current} castShadow>
-      <sphereGeometry args={[0.2, 8, 8]} />
+      <sphereGeometry args={[0.2, 6, 6]} />
       <meshStandardMaterial color="orange" />
     </mesh>
   )
