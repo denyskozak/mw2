@@ -11,7 +11,8 @@ import {
 import Controller from 'ecctrl'
 import { useGameState } from './storage/game-state'
 import { models } from './consts/models'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, forwardRef } from 'react'
+import CameraFollow from './CameraFollow'
 import characterSkillMap from './maps/character-skill-map.json'
 
 const mapKeys = (map, origin) => Object.entries(map).reduce((acc, [key, value]) => {
@@ -19,7 +20,7 @@ const mapKeys = (map, origin) => Object.entries(map).reduce((acc, [key, value]) 
   return {...acc, [key]: origin[value] }
 }, {})
 
-function AnimatedModel({ url, scale }) {
+const AnimatedModel = forwardRef(function AnimatedModel({ url, scale }, modelRef) {
   const { scene, animations } = useGLTF(url)
 
   const { actions: originActions, ref } = useAnimations(animations)
@@ -57,12 +58,19 @@ function AnimatedModel({ url, scale }) {
     }
   })
 
+  useEffect(() => {
+    if (modelRef) {
+      modelRef.current = ref.current
+    }
+  }, [modelRef, ref])
+
   return <primitive ref={ref} object={scene} scale={scale} />
-}
+})
 
 export default function App() {
   const gameState = useGameState();
   const skinOptions = models[gameState.skin];
+  const playerRef = useRef();
 
   const keyboardMap = [
     { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -85,7 +93,8 @@ export default function App() {
         <Physics timeStep="vary">
           <KeyboardControls map={keyboardMap}>
             <Controller maxVelLimit={5}>
-              <AnimatedModel url={skinOptions.path} scale={skinOptions.scale} />
+              <AnimatedModel ref={playerRef} url={skinOptions.path} scale={skinOptions.scale} />
+              <CameraFollow target={playerRef} />
             </Controller>
           </KeyboardControls>
           <RigidBody type="fixed" colliders="trimesh">
