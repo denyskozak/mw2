@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {useInterface} from '@/context/inteface';
+import {useGameState} from '../../../storage/game-state.js';
 import {useWS} from '../../hooks/useWS';
 import { SPELL_COST } from '@/consts';
 import './SkillBar.css';
@@ -45,7 +45,7 @@ const WARRIOR_SKILLS = [
 ];
 
 export const SkillBar = ({ mana = 0, level = 1, skillPoints = 0, learnedSkills = {} }) => {
-    const {state: {character}} = useInterface();
+    const character = useGameState((s) => s.character);
     let skills = DEFAULT_SKILLS;
     if (character?.name === 'warlock') skills = WARLOCK_SKILLS;
     else if (character?.name === 'paladin') skills = PALADIN_SKILLS;

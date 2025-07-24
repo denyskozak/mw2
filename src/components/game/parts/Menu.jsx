@@ -1,15 +1,16 @@
-import { useInterface } from "../../context/inteface";
+import { useGameState } from "../../../storage/game-state.js";
 import { useRouter } from "next/navigation";
 import { ButtonWithSound as Button } from "../button-with-sound";
 import "./Menu.css";
 
 export const GameMenu = () => {
-    const { state: { menuVisible }, dispatch } = useInterface();
+    const menuVisible = useGameState((s) => s.menuVisible);
+    const setMenuVisible = useGameState((s) => s.setMenuVisible);
     const router = useRouter();
 
     if (!menuVisible) return null;
 
-    const closeMenu = () => dispatch({ type: 'SET_MENU_VISIBLE', payload: false });
+    const closeMenu = () => setMenuVisible(false);
 
     return (
         <div className="menu-overlay flex flex-col gap-2">

@@ -14,7 +14,7 @@ export const Buffs = (
     const getBuffs =  ({ buffs, debuffs }) => ({
         buffs, debuffs
     })
-    const {state: {buffs = [], debuffs = []}} = useGameState(getBuffs);
+    const { buffs = [], debuffs = [] } = useGameState(getBuffs);
     const [now, setNow] = useState(Date.now());
 
     const finalBuffs = propBuffs !== undefined ? propBuffs : buffs;

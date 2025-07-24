@@ -1,9 +1,11 @@
-import { useInterface } from "../../context/inteface";
+import { useGameState } from "../../../storage/game-state.js";
 import { useEffect, useState } from "react";
 import { Modal } from "../modal";
 
 export const StatsModal = () => {
-    const { state: { statsVisible, character }, dispatch } = useInterface();
+    const statsVisible = useGameState((s) => s.statsVisible);
+    const character = useGameState((s) => s.character);
+    const setStatsVisible = useGameState((s) => s.setStatsVisible);
     const [stats, setStats] = useState({hp:0, armor:0, maxHp:0, maxArmor:0});
 
     useEffect(() => {
@@ -25,7 +27,7 @@ export const StatsModal = () => {
         <Modal
             open={statsVisible}
             title={`${character?.classType || ''} stats`}
-            onChange={(open) => dispatch({ type: 'SET_STATS_VISIBLE', payload: open })}
+            onChange={(open) => setStatsVisible(open)}
             size="sm"
             actions={[]}
         >
