@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Progress } from "@heroui/react";
+import { Progress } from "../../ui/Progress.jsx";
 
 export const CastBar = () => {
     const [isCasting, setIsCasting] = useState(false);
