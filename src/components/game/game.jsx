@@ -1,4 +1,4 @@
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { Physics, RigidBody } from '@react-three/rapier'
 import {
   Gltf,
@@ -12,6 +12,17 @@ import { AnimatedModel } from './components/animated-model.jsx'
 
 import Projectile from '../projectile.jsx'
 import { Suspense, useRef, useState } from 'react'
+
+function ResetOnFall({ playerRef, threshold = -5, resetPosition = [0, 2, 0] }) {
+  useFrame(() => {
+    const obj = playerRef.current
+    if (!obj) return
+    if (obj.position.y < threshold) {
+      obj.position.set(...resetPosition)
+    }
+  })
+  return null
+}
 
 
 export function Game() {
@@ -44,6 +55,7 @@ export function Game() {
       </directionalLight>
       <ambientLight intensity={0.2} />
       <Physics timeStep="vary">
+        <ResetOnFall playerRef={playerRef} />
         <KeyboardControls map={keyboardMap}>
           <Controller maxVelLimit={4} camTargetPos={{ x: -0.5, y: 0.8, z: 0}}>
             <AnimatedModel ref={playerRef} url={skinOptions.path} scale={skinOptions.scale} onCast={handleCast} />
