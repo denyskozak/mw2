@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Progress } from "@heroui/react";
+import { Progress } from "../../ui/Progress.jsx";
 import { XP_PER_LEVEL } from "@/consts";
 
 export const ExperienceBar = () => {

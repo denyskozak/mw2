@@ -1,4 +1,4 @@
-import { Progress } from "@heroui/react";
+import { Progress } from "../../ui/Progress.jsx";
 import { useEffect, useState } from "react";
 import { useGameState } from '../../../storage/game-state.js'
 import { KeyboardHints } from "../parts/KeyboardHints.jsx";
