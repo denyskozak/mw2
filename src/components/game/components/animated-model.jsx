@@ -73,5 +73,5 @@ export const AnimatedModel = forwardRef(({ url, scale, position, onCast }, model
     }
   })
 
-  return <primitive ref={ref} object={scene} scale={scale} />
+  return <primitive position={position} ref={ref} object={scene} scale={scale} />
 });

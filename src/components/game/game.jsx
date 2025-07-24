@@ -58,7 +58,7 @@ export function Game() {
         <ResetOnFall playerRef={playerRef} />
         <KeyboardControls map={keyboardMap}>
           <Controller maxVelLimit={4} camTargetPos={{ x: -0.5, y: 0.8, z: 0}}>
-            <AnimatedModel ref={playerRef} url={skinOptions.path} scale={skinOptions.scale} onCast={handleCast} />
+            <AnimatedModel position={[0, -0.9, 0]} ref={playerRef} url={skinOptions.path} scale={skinOptions.scale} onCast={handleCast} />
             {/*<CameraFollow target={playerRef} />*/}
           </Controller>
         </KeyboardControls>
