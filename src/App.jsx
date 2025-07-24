@@ -1,15 +1,16 @@
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router";
-import { Game } from './components/game/game'
+} from 'react-router'
+import { GameRoute } from './routes/game.jsx'
+import './styles.css'
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Game />,
+    path: '/',
+    element: <GameRoute />,
   },
-]);
+])
 
 export default function App() {
 

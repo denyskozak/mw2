@@ -6,14 +6,12 @@ import {
   KeyboardControls,
 } from '@react-three/drei'
 import Controller from 'ecctrl'
-import { useGameState } from '../../storage/game-state'
-import { models } from '../../consts/models'
-import { AnimatedModel } from './components/animated-model'
-import { Stats, OrbitControls } from '@react-three/drei'
+import { useGameState } from '../../storage/game-state.js'
+import { models } from '../../consts/models.js'
+import { AnimatedModel } from './components/animated-model.jsx'
 
-import Projectile from '../../Projectile'
-import { useRef, useState } from 'react'
-import { CameraFollow } from './components/camera-flow'
+import Projectile from '../projectile.jsx'
+import { Suspense, useRef, useState } from 'react'
 
 
 export function Game() {
@@ -37,8 +35,9 @@ export function Game() {
   ]
 
   return (
-    <Canvas shadows onPointerDown={(e) => e.target.requestPointerLock()}>
+    <Canvas  shadows onPointerDown={(e) => e.target.requestPointerLock()}>
       {/*<Fisheye zoom={0.4}>*/}
+      <Suspense fallback={null}>
       <Environment files="/env.hdr" ground={{ scale: 100 }} far={100}/>
       <directionalLight intensity={0.7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]}>
         <orthographicCamera attach="shadow-camera" args={[-20, 20, 20, -20]} />
@@ -51,21 +50,22 @@ export function Game() {
             {/*<CameraFollow target={playerRef} />*/}
           </Controller>
         </KeyboardControls>
-        {projectiles.map((p) => (
-          <Projectile
-            key={p.id}
-            start={p.pos}
-            direction={p.dir}
-            onFinish={() =>
-              setProjectiles((s) => s.filter((pr) => pr.id !== p.id))
-            }
-          />
-        ))}
+        {/*{projectiles.map((p) => (*/}
+        {/*  <Projectile*/}
+        {/*    key={p.id}*/}
+        {/*    start={p.pos}*/}
+        {/*    direction={p.dir}*/}
+        {/*    onFinish={() =>*/}
+        {/*      setProjectiles((s) => s.filter((pr) => pr.id !== p.id))*/}
+        {/*    }*/}
+        {/*  />*/}
+        {/*))}*/}
         <RigidBody type="fixed" colliders="trimesh">
           <Gltf castShadow receiveShadow scale={1} src="/models/zone-fantasy-2.glb" />
           {/*<Gltf castShadow receiveShadow rotation={[-Math.PI / 2, 0, 0]} scale={0.11} src="/fantasy_game_inn2-transformed.glb" />*/}
         </RigidBody>
       </Physics>
+      </Suspense>
       {/*</Fisheye>*/}
     </Canvas>
   )

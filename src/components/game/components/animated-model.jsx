@@ -1,9 +1,9 @@
+import * as THREE from 'three'
 import { useAnimations, useGLTF, useKeyboardControls } from '@react-three/drei'
 import { forwardRef, useEffect, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { remapObjectKeys } from '../../../utilities/remap-object-keys'
+import { remapObjectKeys } from '../../../utilities/remap-object-keys.js'
 import characterSkillMap from '../../../maps/character-skill-map.json'
-import * as THREE from 'three'
 
 export const AnimatedModel = forwardRef(({ url, scale, position, onCast }, modelRef) => {
   const { scene, animations } = useGLTF(url)
@@ -33,26 +33,26 @@ export const AnimatedModel = forwardRef(({ url, scale, position, onCast }, model
     const moving = forward || backward || leftward || rightward
 
     if (cast) {
-      if (!castingRef.current) {
-        castingRef.current = true
-        if (onCast && ref.current) {
-          const pos = ref.current.getWorldPosition(new THREE.Vector3())
-          const raycaster = new THREE.Raycaster()
-          raycaster.setFromCamera(new THREE.Vector2(0, 0), camera)
-          const intersects = raycaster.intersectObjects(threeScene.children, true)
-          let target
-          if (intersects.length > 0) {
-            target = intersects[0].point
-          } else {
-            target = camera
-              .getWorldDirection(new THREE.Vector3())
-              .multiplyScalar(1000)
-              .add(camera.position)
-          }
-          const dir = target.clone().sub(pos).normalize()
-          onCast(pos, dir)
-        }
-      }
+      // if (!castingRef.current) {
+      //   castingRef.current = true
+      //   if (onCast && ref.current) {
+      //     const pos = ref.current.getWorldPosition(new THREE.Vector3())
+      //     const raycaster = new THREE.Raycaster()
+      //     raycaster.setFromCamera(new THREE.Vector2(0, 0), camera)
+      //     const intersects = raycaster.intersectObjects(threeScene.children, true)
+      //     let target
+      //     if (intersects.length > 0) {
+      //       target = intersects[0].point
+      //     } else {
+      //       target = camera
+      //         .getWorldDirection(new THREE.Vector3())
+      //         .multiplyScalar(1000)
+      //         .add(camera.position)
+      //     }
+      //     const dir = target.clone().sub(pos).normalize()
+      //     onCast(pos, dir)
+      //   }
+      // }
       if (actions?.casting && !actions?.casting.isRunning()) {
         Object.values(actions).forEach((a) => a?.stop())
         actions?.casting.play();
