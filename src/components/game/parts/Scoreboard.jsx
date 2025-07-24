@@ -1,8 +1,9 @@
-import {useInterface} from "../../context/inteface";
+import {useGameState} from "../../../storage/game-state.js";
 import './Scoreboard.css';
 
 export const Scoreboard = () => {
-    const {state: {scoreboardVisible, scoreboardData}} = useInterface();
+    const scoreboardVisible = useGameState((s) => s.scoreboardVisible);
+    const scoreboardData = useGameState((s) => s.scoreboardData);
 
     if (!scoreboardVisible) return null;
 

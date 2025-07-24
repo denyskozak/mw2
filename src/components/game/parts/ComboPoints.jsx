@@ -1,10 +1,11 @@
-import { useInterface } from '@/context/inteface';
+import { useGameState } from '../../../storage/game-state.js';
 import Image from 'next/image';
 import { assetUrl } from '../../utilities/assets';
 import './ComboPoints.css';
 
 export const ComboPoints = () => {
-    const { state: { buffs = [], character } } = useInterface();
+    const buffs = useGameState((s) => s.buffs);
+    const character = useGameState((s) => s.character);
     if (!character || character.name !== 'rogue') return null;
     const combo = buffs.find(b => b.type === 'combo');
     const count = combo?.stacks || 0;

@@ -2,15 +2,13 @@
 import { useState, useEffect } from "react";
 
 import "./Chat.css";
-import { useInterface } from "../../context/inteface";
+import { useGameState } from "../../../storage/game-state.js";
 import { useWS } from "../../hooks/useWS";
 
 export const Chat = () => {
   const [input, setInput] = useState("");
-  const {
-    state: { chatMessages: messages },
-    dispatch,
-  } = useInterface();
+  const messages = useGameState((s) => s.chatMessages);
+  const addChatMessage = useGameState((s) => s.addChatMessage);
   const { socket, sendToSocket } = useWS();
   const [userCount, setUserCount] = useState(0);
 
@@ -20,10 +18,7 @@ export const Chat = () => {
 
       switch (message.type) {
         case "SEND_CHAT_MESSAGE":
-          dispatch({
-            type: "SEND_CHAT_MESSAGE",
-            payload: `${message?.character?.name ?? "Anon"} say: ${message.payload}`,
-          });
+          addChatMessage(`${message?.character?.name ?? "Anon"} say: ${message.payload}`);
           break;
         case "CHAT_USER_COUNT":
           setUserCount(message.count);
@@ -40,7 +35,7 @@ export const Chat = () => {
 
   const handleSend = () => {
     if (input.trim() !== "") {
-      dispatch({ type: "SEND_CHAT_MESSAGE", payload: `Me: ${input}` });
+      addChatMessage(`Me: ${input}`);
       sendToSocket({ type: "SEND_CHAT_MESSAGE", payload: input });
       setInput("");
     }
