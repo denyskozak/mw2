@@ -3,7 +3,9 @@ import { create } from 'zustand'
 export const useGameState = create((set) => ({
   skin: 'brand',
   chatMessages: [],
-  character: null,
+  character: {
+    class: 'mage',
+  },
   scoreboardData: [],
   scoreboardVisible: false,
   statsVisible: false,

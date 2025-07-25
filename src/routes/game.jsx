@@ -1,5 +1,5 @@
 import { Game } from '../components/game/game.jsx'
-// import { Interface } from '../components/game/layout/Interface'
+import { Interface } from '../components/game/interface/Interface'
 
 
 export function GameRoute() {
@@ -7,8 +7,8 @@ export function GameRoute() {
     <>
       <Game />
       <img className="controlKeys" src="/controls.png" alt="control keys" />
-      <div className="crosshair bg-white" />
-      {/*<Interface />*/}
+      <div className="crosshair" />
+      <Interface />
     </>
   )
 }

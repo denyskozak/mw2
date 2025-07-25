@@ -1,0 +1,7 @@
+{
+  "mage": ["brand", "aurelion", "annie"],
+  "rogue": ["fizz", "akali", "yassuo"],
+  "warlock": ["karthus"],
+  "warrior": ["darius", "kayn"],
+  "paladin": ["galio"]
+}
