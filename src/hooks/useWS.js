@@ -9,11 +9,13 @@ const socket = new WebSocket(`ws://${SOCKET_URL}`);
 export const useWS = (matchId = null) => {
   const account = useCurrentAccount();
   const address = account?.address;
-  const character = useGameState(s => s.character);
+  const character = useGameState((s) => s.character);
+  const joinedMatch = useGameState((s) => s.joinedMatch);
 
   const sendToSocket = (data) => {
     if (!socket || socket.readyState !== WebSocket.OPEN) return;
-    socket.send(JSON.stringify({ address, matchId, character, ...data }));
+    const id = matchId ?? joinedMatch ?? null;
+    socket.send(JSON.stringify({ address, matchId: id, character, ...data }));
   };
 
   return { socket, sendToSocket };
