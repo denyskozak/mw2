@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'blood-strike',
   key: 'E',
-  icon: assetUrl('/icons/classes/rogue/sinister_strike.jpg'),
+  icon: '/images/icons/classes/rogue/sinister_strike.jpg',
   autoFocus: false,
 };
 

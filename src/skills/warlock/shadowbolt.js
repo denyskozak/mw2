@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import castProjectile from '../common/castProjectile';
 
 export const meta = {
   id: 'shadowbolt',
   key: 'E',
-  icon: assetUrl('/icons/classes/warlock/spell_shadowbolt.jpg'),
+  icon: '/images/icons/classes/warlock/spell_shadowbolt.jpg',
   autoFocus: false,
 };
 

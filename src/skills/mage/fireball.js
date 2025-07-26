@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'fireball',
   key: 'E',
-  icon: assetUrl('/icons/classes/mage/fireball.png'),
+  icon: '/images/icons/classes/mage/fireball.png',
   autoFocus: false,
 };
 

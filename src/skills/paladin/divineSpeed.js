@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'divine-speed',
   key: 'F',
-  icon: assetUrl('/icons/classes/paladin/speedoflight.jpg'),
+  icon: '/images/icons/classes/paladin/speedoflight.jpg',
   autoFocus: false,
 };
 
