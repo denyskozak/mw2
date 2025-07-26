@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'kidney-strike',
   key: 'F',
-  icon: assetUrl('/icons/classes/rogue/kidneyshot.jpg'),
+  icon: '/images/icons/classes/rogue/kidneyshot.jpg',
   autoFocus: false,
 };
 

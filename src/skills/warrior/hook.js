@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'hook',
   key: 'F',
-  icon: assetUrl('/icons/classes/warrior/hamstring.jpg'),
+  icon: '/images/icons/classes/warrior/hamstring.jpg',
   autoFocus: false,
 };
 

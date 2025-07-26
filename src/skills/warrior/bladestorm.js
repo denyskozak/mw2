@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'bladestorm',
   key: 'Q',
-  icon: assetUrl('/icons/classes/warrior/bladestorm.jpg'),
+  icon: '/images/icons/classes/warrior/bladestorm.jpg',
   autoFocus: false,
 };
 

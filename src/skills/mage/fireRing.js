@@ -1,5 +1,4 @@
 import { SPELL_COST } from "../../consts";
-import { assetUrl } from "../../utilities/assets";
 
 export const meta = {
   id: "firering",

@@ -1,10 +1,9 @@
-import { assetUrl } from '../../utilities/assets';
 import { SPELL_COST } from '../../consts';
 
 export const meta = {
   id: 'stun',
   key: 'R',
-  icon: assetUrl('/icons/classes/paladin/sealofmight.jpg'),
+  icon: '/images/icons/classes/paladin/sealofmight.jpg',
 };
 
 export default function castStun({ playerId, globalSkillCooldown, isCasting, mana, getTargetPlayer, dispatch, sendToSocket, activateGlobalCooldown, startSkillCooldown, sounds }) {

@@ -1,4 +1,3 @@
-import { assetUrl } from '../../utilities/assets';
 import * as THREE from 'three';
 import { Capsule } from 'three/examples/jsm/math/Capsule';
 import { SPELL_COST } from '../../consts';
@@ -6,7 +5,7 @@ import { SPELL_COST } from '../../consts';
 export const meta = {
   id: 'blink',
   key: 'F',
-  icon: assetUrl('/icons/classes/mage/blink.jpg'),
+  icon: '/images/icons/classes/mage/blink.jpg',
   autoFocus: false,
 };
 
