@@ -27,7 +27,7 @@ function ResetOnFall({ playerRef, threshold = -5, resetPosition = [0, 2, 0] }) {
 }
 
 
-export function Game() {
+export function Game({ matchId = null }) {
   const gameState = useGameState()
   const skinOptions = models[gameState.skin]
   const [projectiles, setProjectiles] = useState([])

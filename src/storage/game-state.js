@@ -24,4 +24,5 @@ export const useGameState = create((set) => ({
   setDebuffs: (debuffs) => set({ debuffs }),
   setScoreboardData: (data) => set({ scoreboardData: data }),
   setScoreboardVisible: (visible) => set({ scoreboardVisible: visible }),
+  setJoinedMatch: (matchId) => set({ joinedMatch: matchId }),
 }))
