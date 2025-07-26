@@ -65,9 +65,9 @@ export function MainRoute() {
         />
 
         <main className="z-[2] flex justify-center w-full h-full overflow-y-auto">
-          <div className=" flex items-center flex-col">
+          <div className="mt-4 flex items-center flex-col">
             {/* HeroUI-like header */}
-            <div style={{ textAlign: 'center' }}>
+            <div className="text-center">
               <div className="inline-block max-w-xl text-center justify-center items-center">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -96,7 +96,7 @@ export function MainRoute() {
             </div>
           </div>
           <div
-            className="absolute bottom-[20vh]"
+            className="absolute bottom-[15vh]"
           >
             <Button
               size="4"
@@ -110,9 +110,9 @@ export function MainRoute() {
           <div className="absolute bottom-4 right-2 transform -translate-x-1/2 z-[2] flex flex-col items-center">
             <img
               alt="Sui logo"
-              height={200}
+              height={120}
               src="/images/Sui_Logo_White.svg"
-              width={120}
+              width={80}
             />
           </div>
         </main>

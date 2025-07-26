@@ -104,18 +104,18 @@ export const Interface = () => {
     <>
       {character && (
         <div className="absolute top-24 left-5 flex items-center gap-2 bg-black/70 p-2 rounded">
-          {character?.name && (
+          {character?.class && (
             <div className="w-20 h-20 rounded-full overflow-hidden bg-black/50 flex items-center justify-center">
-              <Image
-                alt={character.name}
+              <img
+                alt={character.class}
                 height={250}
-                src={CLASS_ICONS[character.name] || ""}
+                src={CLASS_ICONS[character.class] || ""}
                 width={250}
               />
             </div>
           )}
           <div className="w-40 space-y-1">
-            <p className="text-medium font-semibold">
+            <p className="text-medium font-semibold text-white">
               HP: {Math.round(selfStats.hp)}
             </p>
             <Progress
@@ -125,7 +125,7 @@ export const Interface = () => {
               id="hpBar"
               value={Math.round((selfStats.hp / selfStats.maxHp) * 100)}
             />
-            <p className="text-medium font-semibold">
+            <p className="text-medium font-semibold text-white">
               {character.classType === "rogue" ||
               character.classType === "warrior"
                 ? "Energy"
@@ -156,12 +156,12 @@ export const Interface = () => {
 
       {target && (
         <div className="target-panel" id="targetPanel">
-          {target.classType && (
+          {target.class && (
             <div className="w-20 h-20 rounded-full overflow-hidden bg-black/50 flex items-center justify-center">
-              <Image
-                alt={target.classType}
+              <img
+                alt={target.class}
                 height={250}
-                src={CLASS_ICONS[target.classType] || ""}
+                src={CLASS_ICONS[target.class] || ""}
                 width={250}
               />
             </div>
@@ -170,7 +170,7 @@ export const Interface = () => {
             <div className="target-address" id="targetAddress">
               {target.address}
             </div>
-            <p className="text-medium font-semibold">
+            <p className="text-medium font-semibold text-white">
               HP: {Math.round(target.hp)}
             </p>
             <Progress
@@ -181,7 +181,7 @@ export const Interface = () => {
               id="targetHpBar"
               value={Math.round((target.hp / target.maxHp) * 100)}
             />
-            <p className="text-medium font-semibold">
+            <p className="text-medium font-semibold text-white">
               {target.classType === "rogue" || target.classType === "warrior"
                 ? "Energy"
                 : "Mana"}
