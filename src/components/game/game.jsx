@@ -12,8 +12,10 @@ import { models } from '../../consts/models.js'
 import { AnimatedModel } from './components/animated-model.jsx'
 
 import Projectile from '../projectile.jsx'
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, useRef, useState, useEffect } from 'react'
+import * as THREE from 'three'
 import { Interface } from './interface/Interface.jsx'
+import { useWS } from '../../hooks/useWS'
 
 function ResetOnFall({ playerRef, threshold = -5, resetPosition = [0, 2, 0] }) {
   useFrame(() => {
@@ -32,10 +34,41 @@ export function Game({ matchId = null }) {
   const skinOptions = models[gameState.skin]
   const [projectiles, setProjectiles] = useState([])
   const playerRef = useRef()
+  const { socket } = useWS(matchId)
 
   const handleCast = (pos, dir) => {
     setProjectiles((p) => [...p, { id: Date.now() + Math.random(), pos, dir }])
   }
+
+  useEffect(() => {
+    if (!socket) return
+    const handleMessage = (event) => {
+      let msg
+      try {
+        msg = JSON.parse(event.data)
+      } catch {
+        return
+      }
+      if (msg.type === 'CAST_SPELL' && msg.payload?.id) {
+        const type = msg.payload.type
+        if (type === 'fireball' || type === 'shadowbolt') {
+          const start = new THREE.Vector3(
+            msg.payload.position.x,
+            msg.payload.position.y,
+            msg.payload.position.z
+          )
+          const dir = new THREE.Vector3(
+            msg.payload.velocity.x,
+            msg.payload.velocity.y,
+            msg.payload.velocity.z
+          ).normalize()
+          setProjectiles((prev) => [...prev, { id: msg.payload.id, pos: start, dir }])
+        }
+      }
+    }
+    socket.addEventListener('message', handleMessage)
+    return () => socket.removeEventListener('message', handleMessage)
+  }, [socket])
 
   const keyboardMap = [
     { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -65,16 +98,16 @@ export function Game({ matchId = null }) {
                                onCast={handleCast} />
               </Controller>
             </KeyboardControls>
-            {/*{projectiles.map((p) => (*/}
-            {/*  <Projectile*/}
-            {/*    key={p.id}*/}
-            {/*    start={p.pos}*/}
-            {/*    direction={p.dir}*/}
-            {/*    onFinish={() =>*/}
-            {/*      setProjectiles((s) => s.filter((pr) => pr.id !== p.id))*/}
-            {/*    }*/}
-            {/*  />*/}
-            {/*))}*/}
+            {projectiles.map((p) => (
+              <Projectile
+                key={p.id}
+                start={p.pos}
+                direction={p.dir}
+                onFinish={() =>
+                  setProjectiles((s) => s.filter((pr) => pr.id !== p.id))
+                }
+              />
+            ))}
             <RigidBody type="fixed" colliders="trimesh">
               <Gltf castShadow receiveShadow scale={1} src="/models/zone-fantasy-2.glb" />
               {/*<Gltf castShadow receiveShadow rotation={[-Math.PI / 2, 0, 0]} scale={0.11} src="/fantasy_game_inn2-transformed.glb" />*/}
