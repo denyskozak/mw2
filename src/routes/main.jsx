@@ -107,7 +107,7 @@ export function MainRoute() {
             </Button>
           </div>
 
-          <div className="absolute bottom-16 right-0 transform -translate-x-1/2 z-[2] flex flex-col items-center">
+          <div className="absolute bottom-4 right-2 transform -translate-x-1/2 z-[2] flex flex-col items-center">
             <img
               alt="Sui logo"
               height={200}

@@ -101,7 +101,7 @@ export const Interface = () => {
   }, []);
 
   return (
-    <div className="interface-container absolute w-full h-full z-[2]">
+    <>
       {character && (
         <div className="absolute top-24 left-5 flex items-center gap-2 bg-black/70 p-2 rounded">
           {character?.name && (
@@ -248,6 +248,6 @@ export const Interface = () => {
       <LevelUp />
       <KillNotification />
       <Chat />
-    </div>
+    </>
   );
 };

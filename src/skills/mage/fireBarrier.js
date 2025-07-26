@@ -3,7 +3,7 @@ import { SPELL_COST } from '../../consts';
 export const meta = {
   id: 'fire-barrier',
   key: 'R',
-  icon: '/images/skills/dragon.jpg',
+  icon: '/images/icons/classes/mage/fireshield.jpg',
   autoFocus: false,
 };
 

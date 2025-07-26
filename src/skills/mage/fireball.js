@@ -3,7 +3,7 @@ import { SPELL_COST } from '../../consts';
 export const meta = {
   id: 'fireball',
   key: 'E',
-  icon: '/images/icons/classes/mage/fireball.png',
+  icon: '/images/icons/classes/mage/fireball.jpg',
   autoFocus: false,
 };
 

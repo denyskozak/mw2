@@ -3,7 +3,7 @@ import { SPELL_COST } from "../../consts";
 export const meta = {
   id: "firering",
   key: "Q",
-  icon: '/images/skills/fireaoe.jpg',
+  icon: '/images/icons/classes/mage/fireaoe.jpg',
   autoFocus: false,
 };
 
