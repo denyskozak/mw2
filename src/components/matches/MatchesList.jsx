@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { useWS } from '../../hooks/useWS'
+import { MatchCreateForm } from './MatchCreateForm.jsx'
+import { Card, Flex, Heading, Text } from '@radix-ui/themes'
 
 export const MatchesList = () => {
   const { socket, sendToSocket } = useWS()
@@ -26,18 +28,27 @@ export const MatchesList = () => {
   }, [])
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl mb-2">Matches</h1>
-      <ul className="space-y-2">
-        {matches.map((m) => (
-          <li key={m.id} className="border p-2 rounded">
-            <Link to={`/matches/${m.id}`}>{m.name || m.id}</Link>
-            <span className="ml-2 text-sm text-gray-400">
-              {(m.players?.length || 0)}/{m.maxPlayers}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Flex direction="column" p="4">
+      <Heading size="4" mb="2">
+        Matches
+      </Heading>
+      <MatchCreateForm />
+      <Flex direction="column" gap="2" asChild>
+        <ul>
+          {matches.map((m) => (
+            <Card key={m.id} asChild>
+              <li className="list-none">
+                <Flex justify="between" align="center">
+                  <Link to={`/matches/${m.id}`}>{m.name || m.id}</Link>
+                  <Text color="gray" size="2">
+                    {(m.players?.length || 0)}/{m.maxPlayers}
+                  </Text>
+                </Flex>
+              </li>
+            </Card>
+          ))}
+        </ul>
+      </Flex>
+    </Flex>
   )
 }
